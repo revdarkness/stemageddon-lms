@@ -1,0 +1,520 @@
+/**
+ * STEMageddon LMS front-end styles.
+ *
+ * All selectors are scoped under .sglms and prefixed sglms- (BEM-ish) so they
+ * do not bleed into the theme. Colors use CSS custom properties for easy
+ * theming/overrides.
+ */
+
+.sglms {
+	--sglms-accent: #2271b1;
+	--sglms-accent-ink: #fff;
+	--sglms-ok: #00a32a;
+	--sglms-border: #dcdcde;
+	--sglms-muted: #646970;
+	--sglms-bg: #f6f7f7;
+	--sglms-radius: 8px;
+	color: inherit;
+}
+
+/* Buttons */
+.sglms .sglms-btn {
+	display: inline-block;
+	padding: 8px 16px;
+	border: 1px solid var(--sglms-border);
+	border-radius: 6px;
+	background: #fff;
+	color: inherit;
+	text-decoration: none;
+	cursor: pointer;
+	font-size: 14px;
+	line-height: 1.4;
+}
+
+.sglms .sglms-btn--primary {
+	background: var(--sglms-accent);
+	border-color: var(--sglms-accent);
+	color: var(--sglms-accent-ink);
+}
+
+.sglms .sglms-btn[disabled] {
+	opacity: 0.6;
+	cursor: default;
+}
+
+.sglms .sglms-input {
+	padding: 8px 10px;
+	border: 1px solid var(--sglms-border);
+	border-radius: 6px;
+	font-size: 14px;
+}
+
+.sglms .sglms-chip {
+	display: inline-block;
+	font-size: 12px;
+	background: var(--sglms-bg);
+	border: 1px solid var(--sglms-border);
+	border-radius: 12px;
+	padding: 2px 10px;
+	color: var(--sglms-muted);
+}
+
+.sglms .sglms-chip--free {
+	background: var(--sglms-ok);
+	border-color: var(--sglms-ok);
+	color: #fff;
+}
+
+.sglms .sglms-empty,
+.sglms .sglms-note {
+	color: var(--sglms-muted);
+}
+
+/* Progress bar */
+.sglms .sglms-progress {
+	background: #e0e0e0;
+	border-radius: 6px;
+	height: 10px;
+	overflow: hidden;
+	margin: 8px 0;
+}
+
+.sglms .sglms-progress__bar {
+	background: var(--sglms-accent);
+	height: 100%;
+	transition: width 0.3s ease;
+}
+
+/* Catalog */
+.sglms-catalog__filters {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+	margin-bottom: 20px;
+}
+
+.sglms-catalog__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	gap: 20px;
+}
+
+.sglms .sglms-card {
+	border: 1px solid var(--sglms-border);
+	border-radius: var(--sglms-radius);
+	overflow: hidden;
+	background: #fff;
+	display: flex;
+	flex-direction: column;
+}
+
+.sglms .sglms-card__media img {
+	width: 100%;
+	height: 150px;
+	object-fit: cover;
+	display: block;
+}
+
+.sglms .sglms-card__placeholder {
+	display: block;
+	height: 150px;
+	background: linear-gradient(135deg, #e9eef5, #d7e2ef);
+}
+
+.sglms .sglms-card__body {
+	padding: 14px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.sglms .sglms-card__title {
+	margin: 0;
+	font-size: 17px;
+	line-height: 1.3;
+}
+
+.sglms .sglms-card__title a {
+	text-decoration: none;
+}
+
+.sglms .sglms-card__excerpt {
+	margin: 0;
+	font-size: 14px;
+	color: var(--sglms-muted);
+}
+
+.sglms .sglms-card__meta {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+	font-size: 13px;
+	color: var(--sglms-muted);
+	margin-top: auto;
+	align-items: center;
+}
+
+/* Course landing */
+.sglms-course__hero {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 24px;
+	align-items: center;
+	margin-bottom: 24px;
+}
+
+.sglms-course__media img {
+	width: 100%;
+	border-radius: var(--sglms-radius);
+}
+
+.sglms-course__facts {
+	list-style: none;
+	margin: 12px 0;
+	padding: 0;
+	display: flex;
+	gap: 18px;
+	flex-wrap: wrap;
+	color: var(--sglms-muted);
+}
+
+.sglms-course__badges {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 8px;
+}
+
+.sglms-course__section {
+	margin: 28px 0;
+}
+
+/* Accordion */
+.sglms-accordion__item {
+	border: 1px solid var(--sglms-border);
+	border-radius: 6px;
+	margin-bottom: 8px;
+	overflow: hidden;
+}
+
+.sglms-accordion__head {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 12px 16px;
+	background: #fff;
+	border: 0;
+	cursor: pointer;
+	font-weight: 600;
+	font-size: 15px;
+}
+
+.sglms-accordion__count {
+	color: var(--sglms-muted);
+	font-weight: 400;
+	font-size: 13px;
+}
+
+.sglms-accordion__body {
+	list-style: none;
+	margin: 0;
+	padding: 8px 16px 12px;
+}
+
+.sglms-lessonrow {
+	padding: 6px 0;
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.sglms-lessonrow__check {
+	color: var(--sglms-muted);
+}
+
+.sglms-lessonrow.is-complete .sglms-lessonrow__check {
+	color: var(--sglms-ok);
+}
+
+.sglms-instructor {
+	display: flex;
+	gap: 16px;
+	align-items: flex-start;
+}
+
+.sglms-instructor img {
+	border-radius: 50%;
+}
+
+.sglms-instructor__name {
+	font-weight: 600;
+	margin: 0 0 4px;
+}
+
+/* Lesson player */
+.sglms-player {
+	display: grid;
+	grid-template-columns: 280px 1fr;
+	gap: 24px;
+	align-items: start;
+}
+
+.sglms-player__sidebar {
+	border: 1px solid var(--sglms-border);
+	border-radius: var(--sglms-radius);
+	padding: 16px;
+	position: sticky;
+	top: 24px;
+	max-height: calc(100vh - 48px);
+	overflow: auto;
+}
+
+.sglms-player__courselink {
+	display: block;
+	font-size: 13px;
+	margin-bottom: 12px;
+	text-decoration: none;
+}
+
+.sglms-player__nav ul {
+	list-style: none;
+	margin: 0 0 12px;
+	padding: 0;
+}
+
+.sglms-player__module {
+	font-weight: 600;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--sglms-muted);
+	margin: 12px 0 4px;
+}
+
+.sglms-navrow {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	padding: 5px 6px;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+.sglms-navrow.is-current {
+	background: var(--sglms-bg);
+	font-weight: 600;
+}
+
+.sglms-navrow.is-complete .sglms-navrow__icon {
+	color: var(--sglms-ok);
+}
+
+.sglms-navrow.is-locked {
+	color: var(--sglms-muted);
+}
+
+.sglms-navrow a {
+	text-decoration: none;
+}
+
+.sglms-player__title {
+	margin-top: 0;
+}
+
+.sglms-player__video {
+	margin-bottom: 16px;
+}
+
+.sglms-player__video iframe,
+.sglms-player__video video {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+}
+
+/* Tabs */
+.sglms-tabs__nav {
+	display: flex;
+	gap: 4px;
+	border-bottom: 1px solid var(--sglms-border);
+	margin-bottom: 16px;
+}
+
+.sglms-tabs__tab {
+	background: none;
+	border: 0;
+	border-bottom: 2px solid transparent;
+	padding: 8px 12px;
+	cursor: pointer;
+	font-size: 14px;
+	color: var(--sglms-muted);
+}
+
+.sglms-tabs__tab.is-active {
+	color: inherit;
+	border-bottom-color: var(--sglms-accent);
+	font-weight: 600;
+}
+
+.sglms-resources {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.sglms-resources li {
+	padding: 6px 0;
+	border-bottom: 1px solid var(--sglms-border);
+}
+
+.sglms-notes {
+	width: 100%;
+	border: 1px solid var(--sglms-border);
+	border-radius: 6px;
+	padding: 10px;
+	font-family: inherit;
+}
+
+.sglms-notes__actions {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	margin-top: 8px;
+}
+
+.sglms-notes__status {
+	color: var(--sglms-muted);
+	font-size: 13px;
+}
+
+.sglms-player__footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 12px;
+	flex-wrap: wrap;
+	margin-top: 24px;
+	padding-top: 16px;
+	border-top: 1px solid var(--sglms-border);
+}
+
+.sglms-player__prevnext {
+	display: flex;
+	gap: 8px;
+}
+
+.sglms-complete-badge {
+	color: var(--sglms-ok);
+	font-weight: 600;
+}
+
+.sglms-locked {
+	background: var(--sglms-bg);
+	border: 1px solid var(--sglms-border);
+	border-radius: var(--sglms-radius);
+	padding: 24px;
+	text-align: center;
+}
+
+/* Quiz */
+.sglms-quiz-meta {
+	display: flex;
+	gap: 16px;
+	flex-wrap: wrap;
+	color: var(--sglms-muted);
+	font-size: 14px;
+	margin: 12px 0;
+}
+
+.sglms-q {
+	border: 1px solid var(--sglms-border);
+	border-radius: var(--sglms-radius);
+	padding: 14px 16px;
+	margin-bottom: 14px;
+	background: #fff;
+}
+
+.sglms-q.is-correct {
+	border-color: var(--sglms-ok);
+	box-shadow: inset 3px 0 0 var(--sglms-ok);
+}
+
+.sglms-q.is-incorrect {
+	border-color: #b32d2e;
+	box-shadow: inset 3px 0 0 #b32d2e;
+}
+
+.sglms-q__text {
+	font-weight: 600;
+	margin: 0 0 10px;
+}
+
+.sglms-q__opt {
+	display: block;
+	padding: 4px 0;
+}
+
+.sglms-q__short {
+	width: 100%;
+	max-width: 420px;
+}
+
+.sglms-q__order {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.sglms-q__order li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	border: 1px solid var(--sglms-border);
+	border-radius: 6px;
+	padding: 8px 10px;
+	margin-bottom: 6px;
+	background: var(--sglms-bg);
+}
+
+.sglms-q__orderctrl button {
+	border: 1px solid var(--sglms-border);
+	background: #fff;
+	border-radius: 4px;
+	cursor: pointer;
+	width: 28px;
+	height: 28px;
+	line-height: 1;
+}
+
+.sglms-q__feedback {
+	margin: 10px 0 0;
+	font-size: 13px;
+	color: var(--sglms-muted);
+}
+
+.sglms-quiz__result {
+	margin-top: 16px;
+	font-weight: 600;
+	font-size: 18px;
+}
+
+.sglms-quiz__result.is-pass {
+	color: var(--sglms-ok);
+}
+
+.sglms-quiz__result.is-fail {
+	color: #b32d2e;
+}
+
+/* Responsive */
+@media (max-width: 782px) {
+	.sglms-player,
+	.sglms-course__hero {
+		grid-template-columns: 1fr;
+	}
+
+	.sglms-player__sidebar {
+		position: static;
+		max-height: none;
+	}
+}

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<ruleset name="STEMageddon LMS">
+	<description>WordPress-Extra coding standards for STEMageddon LMS.</description>
+
+	<file>.</file>
+
+	<!-- Exclude build artifacts and vendored libraries. -->
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/lib/*</exclude-pattern>
+	<exclude-pattern>/assets/build/*</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg value="ps"/>
+	<arg name="parallel" value="8"/>
+
+	<rule ref="WordPress-Extra"/>
+
+	<!-- Register the plugin's custom capabilities so they are not flagged. -->
+	<rule ref="WordPress.WP.Capabilities">
+		<properties>
+			<property name="custom_capabilities" type="array">
+				<element value="sglms_manage_courses"/>
+				<element value="sglms_manage_own_courses"/>
+				<element value="sglms_view_reports"/>
+				<element value="sglms_issue_certificates"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="sglms"/>
+			</property>
+		</properties>
+	</rule>
+
+	<config name="minimum_supported_wp_version" value="6.4"/>
+	<config name="testVersion" value="8.1-"/>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!-- Prefix enforcement for globals. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="sglms"/>
+				<element value="Sglms"/>
+				<element value="SGLMS"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>
