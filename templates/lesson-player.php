@@ -69,6 +69,12 @@ list( $sglms_prev, $sglms_next ) = $sglms_cid ? Sglms_Frontend::adjacent( $sglms
 	</aside>
 
 	<main class="sglms-player__main">
+		<?php
+		// Phase A: lesson kind derived from existing data (video present => video,
+		// otherwise reading). Slides/audio kinds arrive with the Phase B data model.
+		$sglms_kind = $sglms_video ? 'video' : 'reading';
+		?>
+		<p class="sglms-player__kind sglms-player__kind--<?php echo esc_attr( $sglms_kind ); ?>">// <?php echo esc_html( strtoupper( $sglms_kind ) ); ?></p>
 		<h1 class="sglms-player__title"><?php echo esc_html( get_the_title( $sglms_lesson ) ); ?></h1>
 
 		<?php if ( ! $sglms_avail ) : ?>
@@ -152,11 +158,12 @@ list( $sglms_prev, $sglms_next ) = $sglms_cid ? Sglms_Frontend::adjacent( $sglms
 					<?php if ( $sglms_prev ) : ?>
 						<a class="sglms-btn" href="<?php echo esc_url( get_permalink( $sglms_prev ) ); ?>">&larr; <?php esc_html_e( 'Previous', 'sglms' ); ?></a>
 					<?php endif; ?>
-					<?php if ( $sglms_next ) : ?>
-						<a class="sglms-btn" href="<?php echo esc_url( get_permalink( $sglms_next ) ); ?>"><?php esc_html_e( 'Next', 'sglms' ); ?> &rarr;</a>
-					<?php endif; ?>
 				</div>
 			</div>
+
+			<?php if ( $sglms_next ) : ?>
+				<a class="sglms-player__nextfloat" href="<?php echo esc_url( get_permalink( $sglms_next ) ); ?>"><?php esc_html_e( 'Go to next item', 'sglms' ); ?> &rarr;</a>
+			<?php endif; ?>
 
 			<?php
 			// Threaded discussion, scoped to enrolled users by comments_open filter.

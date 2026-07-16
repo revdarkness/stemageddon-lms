@@ -4,7 +4,7 @@ Tags: lms, courses, quizzes, certificates, membership, e-learning
 Requires at least: 6.4
 Tested up to: 6.5
 Requires PHP: 8.1
-Stable tag: 1.0.0
+Stable tag: 1.0.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,12 @@ Protected files are always served through the plugin's tokenized download contro
 Uninstalling is non-destructive by default. To remove all LMS data (tables, options, roles, pages, and the protected uploads directory) when the plugin is deleted, enable "Delete all data on uninstall" in the LMS settings first. Deactivation never removes data.
 
 == Changelog ==
+
+= 1.0.2 =
+* Course progress now counts required quizzes, not just lessons. The progress bar can no longer reach 100% until every required quiz is passed, so a learner who watched all the lessons but skipped the quiz is not falsely shown as finished. The student dashboard flags an outstanding quiz ("quiz required") and its action button reads "Quiz required to finish" instead of a bare "Continue", making the missing step explicit (and explaining why no certificate has issued yet). Bug fix and UX only; no schema or data changes.
+
+= 1.0.1 =
+* Completed the dark "lab bench HUD" reskin across the remaining front-end screens. The student dashboard ([sglms_dashboard]) and the access-denied page now use the design-system tokens and components (HUD course-row cards with glowing progress bars, blueprint-grid placeholders, a styled empty state, and a centered restricted-content panel) instead of the previous inline default styling, matching the already-reskinned catalog, course landing, lesson player, and quiz surfaces. Added a developer-only demo content seeder (bin/seed-demo.php), excluded from the distribution build. Styling and tooling only; no data-model or behavior changes.
 
 = 1.0.0 =
 * First complete release (Phase 9 packaging). Vendored, self-hosted update checker (MIT) pointed at GitHub releases, with an sglms_github_auth_token filter for private repos. Build script produces a clean installable zip. Full PHPCS WordPress-Extra pass (0 errors). Smoke-tested on a block theme; portable to classic themes.

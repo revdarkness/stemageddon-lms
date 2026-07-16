@@ -161,30 +161,54 @@ class Sglms_Progress {
 	/**
 	 * Compute course progress for a user.
 	 *
-	 * Progress is measured against REQUIRED lessons in the curriculum.
+	 * Progress is measured against REQUIRED lessons AND required course quizzes,
+	 * so the bar cannot read 100% until every required quiz is passed (a student
+	 * who finishes the lessons but skips the quiz is not "done"). The granular
+	 * lesson/quiz counts are returned so callers can message an outstanding quiz.
 	 *
 	 * @param int $user_id   User ID.
 	 * @param int $course_id Course ID.
-	 * @return array{percent:int,completed:int,total:int}
+	 * @return array{percent:int,completed:int,total:int,lessons_done:int,lessons_total:int,quizzes_done:int,quizzes_total:int}
 	 */
 	public static function get_course_progress( $user_id, $course_id ) {
-		$required = self::required_lesson_ids( $course_id );
-		$total    = count( $required );
+		$required_lessons = self::required_lesson_ids( $course_id );
+		$required_quizzes = self::required_quiz_ids( $course_id );
+
+		$lessons_total = count( $required_lessons );
+		$quizzes_total = count( $required_quizzes );
+		$total         = $lessons_total + $quizzes_total;
+
 		if ( 0 === $total ) {
 			return array(
-				'percent'   => 0,
-				'completed' => 0,
-				'total'     => 0,
+				'percent'       => 0,
+				'completed'     => 0,
+				'total'         => 0,
+				'lessons_done'  => 0,
+				'lessons_total' => 0,
+				'quizzes_done'  => 0,
+				'quizzes_total' => 0,
 			);
 		}
 
-		$done      = array_intersect( $required, self::get_completed_lesson_ids( $user_id, $course_id ) );
-		$completed = count( $done );
+		$lessons_done = count( array_intersect( $required_lessons, self::get_completed_lesson_ids( $user_id, $course_id ) ) );
+
+		$quizzes_done = 0;
+		foreach ( $required_quizzes as $quiz_id ) {
+			if ( self::has_passed_quiz( $user_id, $quiz_id ) ) {
+				++$quizzes_done;
+			}
+		}
+
+		$completed = $lessons_done + $quizzes_done;
 
 		return array(
-			'percent'   => (int) round( $completed / $total * 100 ),
-			'completed' => $completed,
-			'total'     => $total,
+			'percent'       => (int) round( $completed / $total * 100 ),
+			'completed'     => $completed,
+			'total'         => $total,
+			'lessons_done'  => $lessons_done,
+			'lessons_total' => $lessons_total,
+			'quizzes_done'  => $quizzes_done,
+			'quizzes_total' => $quizzes_total,
 		);
 	}
 
