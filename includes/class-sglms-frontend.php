@@ -66,6 +66,27 @@ class Sglms_Frontend {
 		if ( is_singular( array( 'sglms_course', 'sglms_lesson', 'sglms_quiz' ) ) ) {
 			return true;
 		}
+
+		/*
+		 * Everything below identifies one specific singular view, so archives,
+		 * search, and the blog index must bail out here.
+		 *
+		 * This guard is load-bearing, not defensive tidiness. On an archive,
+		 * get_queried_object_id() returns a TERM id, and term ids share no ID
+		 * space with post ids. Without this check, a category whose term_id
+		 * happens to equal the stored catalog or dashboard page id makes
+		 * is_lms_screen() return true and the LMS shell hijacks that archive,
+		 * replacing the active theme's template entirely. Reproduced on a fresh
+		 * install where the catalog page was id 5 and category "stem-curriculum"
+		 * was term 5: /category/stem-curriculum/ rendered the LMS shell.
+		 *
+		 * It also stops get_post() below from matching the first post of an
+		 * archive loop when that post happens to embed an LMS shortcode.
+		 */
+		if ( ! is_singular() ) {
+			return false;
+		}
+
 		$post = get_post();
 		if ( $post instanceof WP_Post && ( has_shortcode( $post->post_content, 'sglms_catalog' ) || has_shortcode( $post->post_content, 'sglms_dashboard' ) ) ) {
 			return true;

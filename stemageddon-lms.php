@@ -3,7 +3,7 @@
  * Plugin Name:       STEMageddon LMS
  * Plugin URI:        https://github.com/revdarkness/stemageddon-lms
  * Description:        Self-contained, Coursera-style LMS for WordPress. Courses, quizzes, certificates, protected downloads, and membership access control with zero paid dependencies.
- * Version:           1.0.2
+ * Version:           1.0.3
  * Requires at least: 6.4
  * Requires PHP:      8.1
  * Author:            STEMageddon Labs
@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
  * Constants
  * -------------------------------------------------------------------------
  */
-define( 'SGLMS_VERSION', '1.0.2' );
+define( 'SGLMS_VERSION', '1.0.3' );
 define( 'SGLMS_DB_VERSION', '1' );
 define( 'SGLMS_FILE', __FILE__ );
 define( 'SGLMS_BASENAME', plugin_basename( __FILE__ ) );

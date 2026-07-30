@@ -4,7 +4,7 @@ Tags: lms, courses, quizzes, certificates, membership, e-learning
 Requires at least: 6.4
 Tested up to: 6.5
 Requires PHP: 8.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,9 @@ Protected files are always served through the plugin's tokenized download contro
 Uninstalling is non-destructive by default. To remove all LMS data (tables, options, roles, pages, and the protected uploads directory) when the plugin is deleted, enable "Delete all data on uninstall" in the LMS settings first. Deactivation never removes data.
 
 == Changelog ==
+
+= 1.0.3 =
+* Fixed: the LMS shell could take over an unrelated archive page and replace the active theme's template. `Sglms_Frontend::is_lms_screen()` compared `get_queried_object_id()` against the stored catalog and dashboard page IDs without first confirming the request was a singular view. On a category, tag, author, or date archive that call returns a *term* ID, and term IDs and post IDs are separate ID spaces, so a term whose ID happened to equal the catalog or dashboard page ID caused the LMS shell to render in place of the theme. Reproduced on a fresh install where the catalog page was ID 5 and a category was term 5. The same missing guard also let the shortcode check match the first post of an archive loop when that post embedded `[sglms_catalog]` or `[sglms_dashboard]`. Both are now gated behind an `is_singular()` check. Display-only fix; no schema, data, or settings changes.
 
 = 1.0.2 =
 * Course progress now counts required quizzes, not just lessons. The progress bar can no longer reach 100% until every required quiz is passed, so a learner who watched all the lessons but skipped the quiz is not falsely shown as finished. The student dashboard flags an outstanding quiz ("quiz required") and its action button reads "Quiz required to finish" instead of a bare "Continue", making the missing step explicit (and explaining why no certificate has issued yet). Bug fix and UX only; no schema or data changes.

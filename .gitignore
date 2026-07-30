@@ -9,6 +9,9 @@
 /*.zip
 /dist/
 
+# lms-import skill staging (transient; mounted into the docker stack at import time)
+/bin/.import/
+
 # Editor / OS
 .DS_Store
 Thumbs.db
